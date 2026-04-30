@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PremBook</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4a90e2, #6a11cb);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #333;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: #6a11cb;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794') no-repeat center/cover;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px black;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .books {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .book-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .book-info h3 {
+            margin: 10px 0;
+        }
+
+        .price {
+            color: #6a11cb;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4a90e2, #6a11cb);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📚 Book Haven</h1>
+    <p>Your Online Bookstore</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Books</a>
+    <a href="#">Categories</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="hero">
+    Discover Your Next Favorite Book
+</div>
+
+<div class="container">
+    <h2>Popular Books</h2>
+
+    <div class="books">
+        <div class="book-card">
+            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f" alt="">
+            <div class="book-info">
+                <h3>The Great Adventure</h3>
+                <p class="price">₹499</p>
+                <button class="btn">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc" alt="">
+            <div class="book-info">
+                <h3>Learning Web Design</h3>
+                <p class="price">₹699</p>
+                <button class="btn">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="">
+            <div class="book-info">
+                <h3>Creative Thinking</h3>
+                <p class="price">₹399</p>
+                <button class="btn">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" alt="">
+            <div class="book-info">
+                <h3>Mindset Mastery</h3>
+                <p class="price">₹599</p>
+                <button class="btn">Buy Now</button>
+            </div>
+        </div>
+	<div class="book-card">
+    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19" alt="">
+    <div class="book-info">
+        <h3>Rich Dad Poor Dad</h3>
+        <p class="price">₹599</p>
+        <button class="btn">Buy Now</button>
+    </div>
+</div>
+
+<div class="book-card">
+    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794" alt="">
+    <div class="book-info">
+        <h3>Atomic Habits</h3>
+        <p class="price">₹699</p>
+        <button class="btn">Buy Now</button>
+    </div>
+</div>
+		
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Book Haven | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
