@@ -72,6 +72,38 @@ def logout():
     session.pop('user', None)
     return "Logout successful! <a href='/login'>Login again</a>"
 
+@app.route('/admin')
+def admin():
+    if 'admin' in session:
+        return redirect(url_for('admin_users'))
+    return render_template('admin.html')
+
+@app.route('/admin', methods=['POST'])
+def admin_login():
+    username = request.form['username']
+    password = request.form['password']
+    if username == 'ganesh' and password == 'jaihind':
+        session['admin'] = True
+        return redirect(url_for('admin_users'))
+    else:
+        return "Invalid credentials! <a href='/admin'>Try Again</a>"
+
+@app.route('/admin/users')
+def admin_users():
+    if 'admin' not in session:
+        return redirect(url_for('admin'))
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT name, userid FROM userlogin")
+    users = cursor.fetchall()
+    conn.close()
+    return render_template('admin_users.html', users=users)
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin', None)
+    return "Admin Logout successful! <a href='/admin'>Login again</a>"
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

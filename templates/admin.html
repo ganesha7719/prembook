@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - prembook</title>
+    <title>Admin Login - PremBook</title>
     <style>
         body {
             margin: 0;
@@ -75,21 +75,6 @@
             opacity: 0.9;
         }
 
-        .extra-links {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .extra-links a {
-            color: #6a11cb;
-            text-decoration: none;
-            margin: 0 5px;
-        }
-
-        .extra-links a:hover {
-            text-decoration: underline;
-        }
-
         .logo {
             font-size: 26px;
             margin-bottom: 10px;
@@ -97,30 +82,24 @@
     </style>
 </head>
 <body>
+    <div class="login-container">
+        <div class="logo">🔐 Admin Panel</div>
+        <h2>Admin Access</h2>
+        <p>Enter credentials to access admin panel</p>
 
-<div class="login-container">
-    <div class="logo">💕 PremBook</div>
-    <h2>Welcome Back</h2>
-    <p>Login to your account</p>
-    
-    <form action="/login" method="POST">
-        <div class="input-group">
-            <label>User ID</label>
-            <input type="text" name="uid" placeholder="Enter user ID" required>
-        </div>
-        
-        <div class="input-group">
-            <label>PIN</label>
-            <input type="password" name="upin" placeholder="Enter PIN" required>
-        </div>
-        
-        <button type="submit" class="btn">Login</button>
-    </form>
-    
-    <div class="extra-links">
-        Don't have an account? <a href="/signup">Sign Up</a> | <a href="/admin">Admin Login</a>
+        <form action="/admin" method="POST">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter admin username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter admin password" required>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
     </div>
-</div>
-
 </body>
 </html>

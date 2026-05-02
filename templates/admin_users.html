@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Users List</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #6a11cb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4a90e2, #6a11cb);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registered Users</h1>
+        <ul>
+            {% for user in users %}
+            <li>{{ user[0] }} <span>{{ user[1] }}</span></li>
+            {% endfor %}
+        </ul>
+        <a href="/admin/logout" class="logout-btn">Admin Logout</a>
+    </div>
+</body>
+</html>
