@@ -15,9 +15,28 @@
             color: white;
             padding: 20px;
             text-align: center;
-        }
+        position: relative;
+    }
 
-        nav {
+    .user-actions {
+        position: absolute;
+        top: 22px;
+        right: 20px;
+    }
+
+    .user-actions a {
+        color: white;
+        text-decoration: none;
+        background: rgba(255,255,255,0.15);
+        padding: 8px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .user-actions a:hover {
+        background: rgba(255,255,255,0.25);
+        transform: translateY(-1px);
             background: #333;
             display: flex;
             justify-content: center;
@@ -121,6 +140,7 @@
 <body>
 
 <header>
+    <div class="user-actions"><a href="/logout">🔒 Logout</a></div>
     <h1>📚 Book Haven</h1>
     <p>Your Online Bookstore</p>
 </header>
