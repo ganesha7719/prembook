@@ -2,21 +2,44 @@ import os
 import sqlite3
 from flask import Flask, render_template, request, session, redirect, url_for
 
+try:
+    import psycopg2
+except ImportError:
+    psycopg2 = None
+
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key_here')
 
 # Get the directory where the app is running
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'users.db')
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-# Initialize SQLite database
+
+def use_postgres():
+    return DATABASE_URL is not None and psycopg2 is not None
+
+
+def get_connection():
+    if use_postgres():
+        db_url = DATABASE_URL
+        if db_url.startswith('postgres://'):
+            db_url = db_url.replace('postgres://', 'postgresql://', 1)
+        return psycopg2.connect(db_url, sslmode='require')
+    return sqlite3.connect(DB_PATH)
+
+
+# Initialize database
+
 def init_db():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS userlogin 
                       (name TEXT, userid TEXT PRIMARY KEY, pin TEXT)''')
     conn.commit()
+    cursor.close()
     conn.close()
+
 
 init_db()
 
@@ -39,9 +62,12 @@ def signup():
     pin = request.form['upin']
 
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO userlogin VALUES (?, ?, ?)", (name, userid, pin))
+        if use_postgres():
+            cursor.execute("INSERT INTO userlogin VALUES (%s, %s, %s)", (name, userid, pin))
+        else:
+            cursor.execute("INSERT INTO userlogin VALUES (?, ?, ?)", (name, userid, pin))
         conn.commit()
         cursor.close()
         conn.close()
@@ -55,9 +81,12 @@ def login():
     userid = request.form['uid']
     pin = request.form['upin']
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT name FROM userlogin WHERE userid = ? AND pin = ?", (userid, pin))
+    if use_postgres():
+        cursor.execute("SELECT name FROM userlogin WHERE userid = %s AND pin = %s", (userid, pin))
+    else:
+        cursor.execute("SELECT name FROM userlogin WHERE userid = ? AND pin = ?", (userid, pin))
     result = cursor.fetchone()
     conn.close()
 
@@ -92,7 +121,7 @@ def admin_login():
 def admin_users():
     if 'admin' not in session:
         return redirect(url_for('admin'))
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT name, userid, pin FROM userlogin")
     users = cursor.fetchall()
