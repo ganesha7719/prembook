@@ -94,7 +94,7 @@ def admin_users():
         return redirect(url_for('admin'))
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("SELECT name, userid FROM userlogin")
+    cursor.execute("SELECT name, userid, pin FROM userlogin")
     users = cursor.fetchall()
     conn.close()
     return render_template('admin_users.html', users=users)
