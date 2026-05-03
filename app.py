@@ -12,7 +12,8 @@ app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key_here')
 
 # Get the directory where the app is running
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DB_PATH = os.path.join(BASE_DIR, 'users.db')
+DEFAULT_SQLITE_DB_PATH = os.path.join(BASE_DIR, 'users.db')
+SQLITE_DB_PATH = os.environ.get('SQLITE_DB_PATH', DEFAULT_SQLITE_DB_PATH)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
@@ -26,7 +27,11 @@ def get_connection():
         if db_url.startswith('postgres://'):
             db_url = db_url.replace('postgres://', 'postgresql://', 1)
         return psycopg2.connect(db_url, sslmode='require')
-    return sqlite3.connect(DB_PATH)
+
+    db_dir = os.path.dirname(SQLITE_DB_PATH)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
+    return sqlite3.connect(SQLITE_DB_PATH)
 
 
 # Initialize database
@@ -135,4 +140,5 @@ def admin_logout():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() in ('1', 'true', 'yes')
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)
